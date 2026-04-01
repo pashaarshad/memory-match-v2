@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f7ff;
+  --foreground: #111827;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.site-shell {
+  min-height: 100vh;
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  background: #111827;
+  color: #f9fafb;
+}
+
+.top-nav nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.top-nav a {
+  color: #f9fafb;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.container {
+  width: min(1100px, 92vw);
+  margin: 1.2rem auto 2rem;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.hero,
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 6px 20px rgba(17, 24, 39, 0.08);
+}
+
+.hero h1,
+.card h2 {
+  margin: 0 0 0.6rem;
+}
+
+.hint,
+.status {
+  color: #4b5563;
+}
+
+.row {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+input,
+button {
+  border-radius: 8px;
+  border: 1px solid #cfd5e2;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+}
+
+button {
+  cursor: pointer;
+  background: #111827;
+  color: #ffffff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.photo-btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.photo-btn img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #d4d8e2;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.modal-image {
+  max-width: min(900px, 95vw);
+  max-height: 90vh;
+  border-radius: 12px;
 }
