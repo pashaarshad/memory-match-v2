@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Memory Match (Next.js)
 
-## Getting Started
+Face search website where user uploads one selfie and gets only related matching images from your dataset.
 
-First, run the development server:
+## Current Setup
+
+- Next.js App Router (JavaScript)
+- D3 installed for future chart/analytics usage
+- Dataset folder created: `public/dataset`
+- Upload page created: `/find-me`
+- API route created: `/api/match`
+
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Folder Flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `public/dataset`: put all source images here (group photos, event photos, etc.)
+- `src/app/find-me/page.js`: user uploads selfie
+- `src/app/api/match/route.js`: server route that reads dataset and returns matches
+- `src/lib/face/match-face.js`: face comparison logic
 
-## Learn More
+## Important Note
 
-To learn more about Next.js, take a look at the following resources:
+Right now, matching logic is placeholder and returns dataset items. This is done intentionally to keep the full request flow working first.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Next Implementation Steps
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Add real face model on server side in `src/lib/face/match-face.js`.
+2. For each dataset image, detect all faces and store embeddings.
+3. For uploaded selfie, generate embedding and compare with stored embeddings.
+4. Use threshold (example `0.45`) to decide if same person.
+5. Return only matched images from API.
+6. Optional: keep secure images outside `public` and serve only authorized matched files.
 
-## Deploy on Vercel
+## Suggested Face Library (Next.js only)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Good balance for your requirement: `face-api.js` + `@tensorflow/tfjs-node` (server side)
+- Faster and modern alternative: `@vladmandic/face-api` with Node backend in Next.js route handlers
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No Python is required for this architecture.
